@@ -1,0 +1,74 @@
+#[colors.bright]
+#black = "#475258"
+#blue = "#7fbbb3"
+#cyan = "#83c092"
+#green = "#a7c080"
+#magenta = "#d699b6"
+#red = "#e67e80"
+#white = "#d3c6aa"
+#yellow = "#dbbc7f"
+#
+#[colors.normal]
+#black = "#414b50"
+#blue = "#7fbbb3"
+#cyan = "#83c092"
+#green = "#a7c080"
+#magenta = "#d699b6"
+#red = "#e67e80"
+#white = "#d3c6aa"
+#yellow = "#dbbc7f"
+#
+#[colors.primary]
+#background = "#1B1D26"
+#foreground = "#d3c6aa"
+
+[colors.primary]
+background = "#1d2021"
+foreground = "#d4be98"
+[colors.normal]
+black = "#32302f"
+red = "#ea6962"
+green = "#a9b665"
+yellow = "#d8a657"
+blue = "#7daea3"
+magenta = "#d3869b"
+cyan = "#89b482"
+white = "#d4be98"
+[colors.bright]
+black = "#32302f"
+red = "#ea6962"
+green = "#a9b665"
+yellow = "#d8a657"
+blue = "#7daea3"
+magenta = "#d3869b"
+cyan = "#89b482"
+white = "#d4be98"
+
+[mouse]
+hide_when_typing = true
+
+[cursor]
+style = { shape = "Block", blinking = "On" }
+
+[env]
+#TERM = "xterm-256color"
+
+[font]
+size = 11.0
+#normal = { family = "Jetbrains Mono NL", style = 'Regular' }
+#normal = { family = "IBM Plex Mono", style = 'Regular' }
+normal = { family = "Iosevka Fixed Extended", style='Regular' }
+
+[selection]
+save_to_clipboard = true
+
+[window]
+decorations = "None"
+decorations_theme_variant = "Dark"
+resize_increments = true
+dynamic_padding = true
+#opacity = 0.95
+
+[window.dimensions]
+columns = 80
+lines = 24

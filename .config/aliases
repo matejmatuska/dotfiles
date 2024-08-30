@@ -1,0 +1,40 @@
+alias vim="nvim"
+alias open="xdg-open"
+
+# Adding color
+alias ip='ip --color=auto'
+alias diff='diff --color=auto'
+alias ll='ls -lh --color=auto'
+
+alias df='df -h'
+
+# When quitting ranger do not return to a directory where ranger was launched,
+# instead return to a current ranger directory
+alias ranger='ranger --choosedir=$HOME/.rangerdir; LASTDIR=`cat $HOME/.rangerdir`; cd "$LASTDIR"'
+
+# display a list of supported colors
+function lscolors {
+    ((cols = $COLUMNS - 4))
+    s=$(printf %${cols}s)
+    for i in {000..$(tput colors)}; do
+        echo -e $i $(tput setaf $i; tput setab $i)${s// /=}$(tput op);
+    done
+}
+
+alias dots='/usr/bin/git --git-dir="$XDG_CONFIG_HOME/dots" --work-tree="$HOME"'
+
+function theme {
+    case $1 in
+        light)
+            gsettings set org.gnome.desktop.interface color-scheme prefer-light
+            gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3
+            ;;
+        dark)
+            gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+            gsettings set org.gnome.desktop.interface gtk-theme adw-gtk3-dark
+            ;;
+        *)
+            echo "Argument must be either 'light' or 'dark'"; return 1;
+            ;;
+    esac
+}
