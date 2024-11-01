@@ -6,17 +6,19 @@ fi
 # don't pause the terminal output on ^S
 stty -ixon
 
-function git_branch() {
-    branch=$(git branch --show-current 2> /dev/null)
-    dirty=$(git diff-index --quiet HEAD -- 2> /dev/null && echo '%F{1}*%f' || echo '')
-    [ -n "$branch" ] && echo '%fon %F{13}'$branch'%f'$dirty || :
-}
+# git info in prompt
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' actionformats '%F{3}%b%f:%F{1}%a%%f'
+zstyle ':vcs_info:*' formats       '%F{3}%b%f %u%c'
+zstyle ':vcs_info:*' check-for-changes 1
+#zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{2}:%F{3}%r'
 
 setopt prompt_subst
 #PROMPT='%B%(1j.%F{red}*%f.)%F{14}%n@%m%f:%F{12}%~%f:%F{yellow}$(git_branch)%f%(!.#.$)%b '
 PROMPT='%B%(1j.%F{red}*%f.)%F{12}%5(~/.../)%3~%f%(!.#.>)%b '
 #RPROMPT='%(?.%F{green}✔%f.%F{red}✘%f)'
-RPROMPT='$(git_branch) %(?.%F{green}0%f.%F{red}%?%f)'
+RPROMPT='${vcs_info_msg_0_} %(?.%F{green}0%f.%F{red}%?%f)'
 
 #warn about suspended jobs when exiting
 setopt CHECK_JOBS
@@ -24,7 +26,9 @@ setopt CHECK_JOBS
 function precmd {
     window_title="\033]0;${PWD}\007"
     print -Pn - '\e]0;%n@%m:%~\a'
+    vcs_info
 }
+
 
 WORDCHARS=${WORDCHARS/\/}
 WORDCHARS=${WORDCHARS/=}
