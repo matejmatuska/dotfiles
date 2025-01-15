@@ -273,8 +273,18 @@ trough {
     border-radius: 4px;
     background-color: grey;
     margin: 0 2px;
+    padding: 0px;
 }
 
 highlight {
+    padding: 0px;
     background-color: white;
+}
+
+scale {
+    min-height: 0px;
+    min-width: 0px;
+    padding: 0px;
+    background-image: none;
+    border: none;
 }

@@ -14,6 +14,7 @@
         "sway/window",
         ],
     "modules-right": [
+        "power-profiles-daemon",
         "idle_inhibitor",
         "custom/power_profile",
         "sway/language",
@@ -27,6 +28,17 @@
         "tray",
         "custom/notification",
     ],
+    "power-profiles-daemon": {
+        "format": "PWR: {icon}",
+        "tooltip-forma": "Power profile: {profile}nDriver: {driver}",
+        "tooltip": true,
+        "format-icons": {
+            "default": "D",
+            "performance": "P",
+            "balanced": "B",
+            "power-saver": "S"
+        }
+    },
     "sway/language": {
         "format": "{short}",
         "on-click": "swaymsg input type:keyboard xkb_switch_layout next",
