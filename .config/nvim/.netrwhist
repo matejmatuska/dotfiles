@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =5
+let g:netrw_dirhist_5='/mnt/sdb3/Users/matej/vutfit/leto/ivs/projekt1/ivs_project_1_2021/assignment'
+let g:netrw_dirhist_4='/mnt/sdb3/Users/matej/vutfit/leto/ivs/projekt1/ivs_project_1_2021/assignment/build'
+let g:netrw_dirhist_3='/mnt/sdb3/Users/matej/vutfit/leto/ivs/projekt1/ivs_project_1_2021'
+let g:netrw_dirhist_2='/mnt/sdb3/Users/matej/vutfit/leto/ivs/projekt1/ivs_project_1_2021/assignment'
+let g:netrw_dirhist_1='/mnt/sdb3/Users/matej/vutfit/leto/ivs/projekt1/ivs_project_1_2021'
+let g:netrw_dirhist_0='/mnt/sdb3/Users/matej/vutfit/leto/ivs/projekt1/ivs_project_1_2021/assignment'
+let g:netrw_dirhist_9='/home/matej/.vim/plugged/gruvbox'
+let g:netrw_dirhist_8='/home/matej/.vim/plugged'
+let g:netrw_dirhist_7='/home/matej/.vim'
+let g:netrw_dirhist_6='/home/matej'

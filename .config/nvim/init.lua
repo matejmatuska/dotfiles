@@ -1,23 +1,6 @@
 vim.g.mapleader = ' '
 --vim.g.maplocalleader = ' '
 
-
-vim.api.nvim_create_autocmd({ "UIEnter", "ColorScheme" }, {
-  callback = function()
-    local normal = vim.api.nvim_get_hl(0, { name = "Normal" })
-    if not normal.bg then return end
-    io.write(string.format("\027Ptmux;\027\027]11;#%06x\007\027\\", normal.bg))
-    io.write(string.format("\027]11;#%06x\027\\", normal.bg))
-  end,
-})
-
-vim.api.nvim_create_autocmd("UILeave", {
-  callback = function()
-    io.write("\027Ptmux;\027\027]111;\007\027\\")
-    io.write("\027]111\027\\")
-  end,
-})
-
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system {
@@ -33,12 +16,27 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
     {
-        "zenbones-theme/zenbones.nvim",
-        priority = 999,
-        -- Optionally install Lush. Allows for more configuration or extending the colorscheme
-        -- If you don't want to install lush, make sure to set g:zenbones_compat = 1
-        -- In Vim, compat mode is turned on as Lush only works in Neovim.
-        dependencies = { "rktjmp/lush.nvim" }
+        "projekt0n/github-nvim-theme",
+        name = 'github-theme',
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require("github-theme").setup({
+                options = {
+                    hide_end_of_buffer = false,
+                    hide_nc_statusline = false,
+                },
+            })
+
+            vim.cmd.colorscheme('github_dark_dimmed')
+        end,
+    },
+    {
+        "github/copilot.vim",
+        config = function()
+            vim.g.copilot_no_tab_map = true
+            vim.api.nvim_set_keymap("i", "<C-J>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+        end,
     },
     {
         'lervag/vimtex',
@@ -60,82 +58,12 @@ require('lazy').setup({
         end
     },
     {
-        enabled = true,
-        'rebelot/kanagawa.nvim',
-        priority = 1000,
-        init = function()
-            require('kanagawa').setup {
-                colors = {
-                    theme = {
-                        all = {
-                            ui = {
-                                bg_gutter = "none"
-                            }
-                        },
-                        wave = {
-                            syn = {
-                                preproc = "lightBlue"
-                            }
-                        }
-                    }
-                },
-                overrides = function(colors)
-                    return {
-                        ["@lsp.type.comment"] = { link = "Comment" },
-                        ["@comment.todo"] = { link = "Todo" },
-                    }
-                end,
-            }
-            --vim.cmd.colorscheme 'kanagawa'
-        end
-    }, {
-        'sainnhe/gruvbox-material',
-        name = 'gruvbox-material',
-        lazy = false,
-        priority = 1000,
-        init = function()
-            vim.g.gruvbox_material_better_performance = 1
-            -- Fonts
-            vim.g.gruvbox_material_disable_italic_comment = 0
-            vim.g.gruvbox_material_enable_italic = 1
-            vim.g.gruvbox_material_enable_bold = 0
-            vim.g.gruvbox_material_transparent_background = 0
-            -- Themes
-            vim.g.gruvbox_material_foreground = 'mix'
-            vim.g.gruvbox_material_background = 'hard'
-            vim.g.gruvbox_material_ui_contrast = 'high' -- The contrast of line numbers, indent lines, etc.
-            vim.g.gruvbox_material_float_style = 'bright' -- Background of floating windows
-            vim.g.gruvbox_material_diagnostic_virtual_text = 'highlited'
-            --vim.g.gruvbox_material_sign_column_background = 'grey'
-            vim.cmd.colorscheme('gruvbox-material')
-        end
-    },
-    {
         'neovim/nvim-lspconfig',
         config = function()
             require("my/lsp")
         end
     },
-    'Yazeed1s/oh-lucy.nvim',
-    -- 'Shatur/neovim-ayu',
-    -- 'nyoom-engineering/oxocarbon.nvim',
-    -- { 'rose-pine/neovim', name = 'rose-pine' },
-    -- {
-    --     "catppuccin/nvim",
-    --     name = "catppuccin",
-    --     priority = 1000,
-    -- },
     {
-        "neanias/everforest-nvim",
-        priority = 1000, -- make sure to load this before all the other start plugins
-        config = function()
-            require("everforest").setup({
-                --sign_column_background = "grey",
-                background = "hard",
-                transparent_background_level = 1,
-            })
-        end,
-    }, {
         -- Autocompletion
         'hrsh7th/nvim-cmp',
         enabled = true,
@@ -162,10 +90,13 @@ require('lazy').setup({
         config = function()
             require("my/cmp")
         end
-    }, {
+    },
+    {
         'nvimtools/none-ls.nvim',
         dependencies = { 'nvim-lua/plenary.nvim' },
-    }, {
+        config = function() require("my/nulls") end
+    },
+    {
         -- Highlight, edit, and navigate code
         'nvim-treesitter/nvim-treesitter',
         dependencies = {
@@ -175,7 +106,11 @@ require('lazy').setup({
         config = function()
             require("my/treesitter")
         end
-    }, {
+    },
+    {
+        "nvim-treesitter/nvim-treesitter-context",
+    },
+    {
         -- Adds git related signs to the gutter, as well as utilities for managing changes
         'lewis6991/gitsigns.nvim',
         opts = {
@@ -200,7 +135,8 @@ require('lazy').setup({
                 vim.cmd('redrawstatus!')
             end,
         },
-    }, {
+    },
+    {
         'nvim-telescope/telescope.nvim',
         event = 'VimEnter',
         branch = '0.1.x',
@@ -258,7 +194,8 @@ require('lazy').setup({
             vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
             vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
         end,
-    }, {
+    },
+    {
         "folke/which-key.nvim",
         event = "VeryLazy",
         init = function()
@@ -273,10 +210,40 @@ require('lazy').setup({
                 group = "+", -- symbol prepended to a group
                 ellipsis = "…",
                 -- set to false to disable all mapping icons,
-                -- both those explicitely added in a mapping
+                -- both those explicitly added in a mapping
                 -- and those from rules
                 mappings = false,
                 rules = false,
+                keys = {
+                    Up = " ",
+                    Down = " ",
+                    Left = " ",
+                    Right = " ",
+                    C = "Ctrl ",
+                    M = "Alt ",
+                    D = "D",
+                    S = "Shift",
+                    CR = "CR",
+                    Esc = "ESC",
+                    ScrollWheelDown = "󱕐 ",
+                    ScrollWheelUp = "󱕑 ",
+                    NL = "NL",
+                    BS = "BS",
+                    Space = "Space",
+                    Tab = "Tab",
+                    F1 = "F1",
+                    F2 = "F2",
+                    F3 = "F3",
+                    F4 = "F4",
+                    F5 = "F5",
+                    F6 = "F6",
+                    F7 = "F7",
+                    F8 = "F8",
+                    F9 = "F9",
+                    F10 = "F10",
+                    F11 = "F11",
+                    F12 = "F12",
+                }
             },
         },
         keys = {
@@ -288,7 +255,49 @@ require('lazy').setup({
                 desc = "Buffer Local Keymaps (which-key)",
             },
         },
-    }
+    },
+    {
+        'sainnhe/gruvbox-material',
+        name = 'gruvbox-material',
+        lazy = false,
+        priority = 1000,
+        init = function()
+            vim.g.gruvbox_material_better_performance = 1
+            -- Fonts
+            vim.g.gruvbox_material_disable_italic_comment = 0
+            vim.g.gruvbox_material_enable_italic = 1
+            vim.g.gruvbox_material_enable_bold = 0
+            vim.g.gruvbox_material_transparent_background = 0
+            -- Themes
+            vim.g.gruvbox_material_foreground = 'mix'
+            vim.g.gruvbox_material_background = 'hard'
+            vim.g.gruvbox_material_ui_contrast = 'high' -- The contrast of line numbers, indent lines, etc.
+            vim.g.gruvbox_material_float_style = 'bright' -- Background of floating windows
+            vim.g.gruvbox_material_diagnostic_virtual_text = 'highlited'
+            --vim.g.gruvbox_material_sign_column_background = 'grey'
+        end
+    },
+    {
+        "zenbones-theme/zenbones.nvim",
+        priority = 1000,
+        -- Optionally install Lush. Allows for more configuration or extending the colorscheme
+        -- If you don't want to install lush, make sure to set g:zenbones_compat = 1
+        -- In Vim, compat mode is turned on as Lush only works in Neovim.
+        dependencies = { "rktjmp/lush.nvim" }
+    },
+    'Yazeed1s/oh-lucy.nvim',
+    -- 'Shatur/neovim-ayu',
+    {
+        "neanias/everforest-nvim",
+        priority = 1000, -- make sure to load this before all the other start plugins
+        config = function()
+            require("everforest").setup({
+                --sign_column_background = "grey",
+                background = "hard",
+                transparent_background_level = 1,
+            })
+        end,
+    },
 })
 
 vim.opt.number = true
@@ -357,7 +366,7 @@ vim.g.netrw_banner = 0 -- hide banner
 
 local highlight_yank_augroup = vim.api.nvim_create_augroup('highlight_yank', {clear = true})
 vim.api.nvim_create_autocmd("TextYankPost", {
-    pattern='*',
+    pattern = '*',
     group = highlight_yank_augroup,
     callback=function() vim.highlight.on_yank({higroup='Visual', timeout=200}) end,
 })
@@ -370,6 +379,24 @@ vim.api.nvim_create_autocmd("FileType", {
     command = 'setlocal formatexpr='
 })
 
+-- change terminal background to that of nvim
+vim.api.nvim_create_autocmd({ "UIEnter", "ColorScheme" }, {
+  callback = function()
+    local normal = vim.api.nvim_get_hl(0, { name = "Normal" })
+    if not normal.bg then return end
+    io.write(string.format("\027Ptmux;\027\027]11;#%06x\007\027\\", normal.bg))
+    io.write(string.format("\027]11;#%06x\027\\", normal.bg))
+  end,
+})
+
+vim.api.nvim_create_autocmd("UILeave", {
+  callback = function()
+    io.write("\027Ptmux;\027\027]111;\007\027\\")
+    io.write("\027]111\027\\")
+  end,
+})
+
+
 -- Terminal --------------------------------------------------------------------
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 
@@ -377,11 +404,13 @@ local term_augroup = vim.api.nvim_create_augroup('terminal', {clear = true})
 vim.api.nvim_create_autocmd("TermOpen", {
     group = term_augroup,
     callback = function(event)
-        vim.opt_local.statusline=[[%{%luaeval("vim.api.nvim_buf_get_var(0, 'term_title')")%}]]
+        vim.opt_local.statusline = [[%{%luaeval("vim.api.nvim_buf_get_var(0, 'term_title')")%}]]
         vim.opt_local.number = false
         vim.opt_local.relativenumber = false
     end
 })
+
+vim.keymap.set({'n', 'v'}, '<leader>y', '"+y')
 
 vim.api.nvim_create_user_command('Vterm', 'vsplit <Bar> term',
     {desc='Open terminal in new vertical split'}
@@ -399,5 +428,3 @@ vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 --vim.keymap.set('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
 --vim.keymap.set('i', '<Tab>', 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"', {expr = true})
-
-require("my/nulls")

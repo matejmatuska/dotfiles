@@ -36,8 +36,8 @@ cmp.setup({
       --documentation = cmp.config.window.bordered(),
     },
     mapping = {
-        ['<C-n>'] = cmp.mapping.select_next_item(),
-        ['<C-p>'] = cmp.mapping.select_prev_item(),
+        -- ['<C-n>'] = cmp.mapping.select_next_item(),
+        -- ['<C-p>'] = cmp.mapping.select_prev_item(),
 
         ['<C-y>'] = cmp.mapping.confirm({ select = true }),
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
@@ -58,7 +58,7 @@ cmp.setup({
                 c = cmp.mapping.close(),
             }),
 
-        ['<Tab>'] = cmp.mapping(function(fallback)
+        ['<C-n>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then
@@ -75,7 +75,7 @@ cmp.setup({
 --                end
             end
         end, { 'i', 's' }),
-        ['<S-Tab>'] = cmp.mapping(function(fallback)
+        ['<C-p>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
             elseif luasnip.jumpable(-1) then
