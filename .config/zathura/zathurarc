@@ -1,45 +1,49 @@
-set default-bg  "#1B1D26"
-set default-fg "#d3c6aa"
-set font "Caskaydia Cove Nerd Font 10"
-
-set statusbar-bg "#404c51"
-set statusbar-fg "#d3c6aa"
-set statusbar-basename true
-
-set inputbar-bg "#2f383e"
-set inputbar-fg "#d3c6aa"
-
-set index-bg "#2f383e"
-set index-fg "#d3c6aa"
-set index-active-bg "#a7c080"
-set index-active-fg "#2b3339"
-
-set completion-bg "#2f383e"
-set completion-fg "#d3c6aa"
-set completion-group-bg "#2f383e"
-set completion-group-fg "#7fbbb3"
-set completion-highlight-bg "#a7c080"
-set completion-highlight-fg "#2b3339"
-
-set notification-bg "#2f383e"
-set notification-fg "#d3c6aa"
-set notification-error-bg "#e68183"
-set notification-error-fg "#2b3339"
-set notification-warning-bg "#e68183"
-set notification-warning-fg "#2b3339"
-
-set highlight-color "#a7c080"
-set highlight-active-color "#7fbbb3"
-set highlight-transparency 0.35
+set font "Iosevka Fixed Regular 11"
 map <A-n> set nohlsearch
 
-set recolor-lightcolor "#1B1D26"
-set recolor-darkcolor "#d3c6aa"
+set window-title-home-tilde true
+set statusbar-basename true
 set recolor-keephue "true"
 set recolor "true"
-
-set render-loading-bg "#1B1D26"
-set render-loading-fg "#d3c6aa"
-
 set selection-clipboard clipboard
-set window-title-home-tilde true
+
+set notification-error-bg       "rgba(29,32,33,1)"     # bg
+set notification-error-fg       "rgba(251,73,52,1)"    # bright:red
+set notification-warning-bg     "rgba(29,32,33,1)"     # bg
+set notification-warning-fg     "rgba(250,189,47,1)"   # bright:yellow
+set notification-bg             "rgba(29,32,33,1)"     # bg
+set notification-fg             "rgba(184,187,38,1)"   # bright:green
+
+set completion-bg               "rgba(80,73,69,1)"     # bg2
+set completion-fg               "rgba(235,219,178,1)"  # fg
+set completion-group-bg         "rgba(60,56,54,1)"     # bg1
+set completion-group-fg         "rgba(146,131,116,1)"  # gray
+set completion-highlight-bg     "rgba(131,165,152,1)"  # bright:blue
+set completion-highlight-fg     "rgba(80,73,69,1)"     # bg2
+
+# Define the color in index mode
+set index-bg                    "rgba(80,73,69,1)"     # bg2
+set index-fg                    "rgba(235,219,178,1)"  # fg
+set index-active-bg             "rgba(131,165,152,1)"  # bright:blue
+set index-active-fg             "rgba(80,73,69,1)"     # bg2
+
+set inputbar-bg                 "rgba(29,32,33,1)"     # bg
+set inputbar-fg                 "rgba(235,219,178,1)"  # fg
+
+set statusbar-bg                "rgba(80,73,69,1)"     # bg2
+set statusbar-fg                "rgba(235,219,178,1)"  # fg
+
+set highlight-color             "rgba(250,189,47,0.5)" # bright:yellow
+set highlight-active-color      "rgba(254,128,25,0.5)" # bright:orange
+
+set default-bg                  "rgba(29,32,33,1)"     # bg
+set default-fg                  "rgba(235,219,178,1)"  # fg
+set render-loading              true
+set render-loading-bg           "rgba(29,32,33,1)"     # bg
+set render-loading-fg           "rgba(235,219,178,1)"  # fg
+
+# Recolor book content's color
+set recolor-lightcolor          "rgba(29,32,33,1)"     # bg
+set recolor-darkcolor           "rgba(235,219,178,1)"  # fg
+set recolor                     "true"
+set recolor-keephue             "true"                 # keep original color
