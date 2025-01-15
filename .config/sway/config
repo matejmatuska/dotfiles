@@ -23,9 +23,34 @@ set $menu rofi -show drun -show-icons -drun-show-actions
 workspace_auto_back_and_forth yes
 
 # STYLE
-hide_edge_borders smart
-default_border pixel 1
+hide_edge_borders --i3 smart
+default_border normal 1
 default_floating_border normal 1
+
+#set $color_bg            #282828
+#set $color_bg1           #3c3836
+#set $color_bg2           #504945
+#set $color_bg3           #665c54
+#set $color_bg4           #7c6f64
+#set $color_fb            #ebdbb2
+#set $color_aqua          #8ec07c
+#set $color_blue          #83a598
+#set $color_light_bg      #fbf1c7
+#set $color_light_fg      #3c3836
+#set $color_normal_white  #a89984
+#set $color_bright_white  #ebdbb2
+#set $color_normal_gray   #282828
+#set $color_bright_gray   #3c3836
+#set $color_bright_yellow #d79921
+#set $color_normal_black  #1d2021
+#set $color_unused        #ff0000
+#
+#client.focused            $color_bg2    $color_bg2             $color_bright_white    $color_bright_gray   $color_normal_black
+#client.focused_inactive   $color_bg1    $color_bg1             $color_normal_white    $color_bright_gray   $color_normal_black
+#client.unfocused          $color_bg     $color_bg              $color_normal_white    $color_normal_gray   $color_normal_black
+#client.urgent             $color_bg     $color_light_bg        $color_light_fg $color_unused        $color_unused
+#client.placeholder        $color_bg     $color_unused          $color_unused          $color_unused        $color_unused
+
 #smart_gaps on
 # class                 │ border │ background │ text │ indicator │ child_border
 # client.focused           #a7c080 #a7c080 #2b3339 #87c050
@@ -41,7 +66,7 @@ titlebar_border_thickness 1
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/Pictures/Wallpapers/firewatch-game-tower-4k.jpg fill
+output * bg ~/Pictures/Wallpapers/leaves1.jpg fill
 output * color_profile icc ~/Downloads/rtings-icc-profile.icc
 output eDP-1 resolution 1920x1080 position 0,0 scale 1.25
 output HDMI-A-1 position 1536,0
@@ -138,6 +163,8 @@ input "type:touchpad" {
     bindsym $mod+Shift+Down move down
     bindsym $mod+Shift+Up move up
     bindsym $mod+Shift+Right move right
+
+    bindsym $mod+Ctrl+c move position center
 #
 # Workspaces:
 #
@@ -189,7 +216,10 @@ input "type:touchpad" {
     bindsym $mod+f fullscreen
 
     # Toggle the current focus between tiling and floating mode
-    bindsym $mod+Shift+space floating toggle
+    bindsym $mod+Shift+space floating toggle;
+    #\
+    #    [tiling con_id=__focused__] border none; \
+    #    [floating con_id=__focused__] border normal 1
 
     # Swap focus between the tiling area and the floating area
     bindsym $mod+space focus mode_toggle
@@ -215,6 +245,8 @@ input "type:touchpad" {
     bindsym $mod+minus scratchpad show
 
     bindsym $mod+Tab workspace back_and_forth
+
+    bindsym $mod+Shift+s sticky toggle
 #
 # Resizing containers:
 #

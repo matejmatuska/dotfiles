@@ -24,3 +24,8 @@ for_window [title="Save File"] floating enable
 
 assign [class="discord"] workspace 5
 
+for_window [app_id="Waydroid"] floating enable, border normal 1
+for_window [app_id="waydroid.*"] floating enable, resize set width 400 ppt hegight 711 ppt, border csd
+for_window [app_id="waydroid.com.facebook.orca"] floating enable, resize set width 400 ppt hegight 711 ppt, border csd
+
+#for_window [floating] border normal 1
