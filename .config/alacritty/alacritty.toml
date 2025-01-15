@@ -63,7 +63,7 @@ normal = { family = "Iosevka Fixed Extended", style='Regular' }
 save_to_clipboard = true
 
 [window]
-decorations = "None"
+decorations = "Full"
 decorations_theme_variant = "Dark"
 resize_increments = true
 dynamic_padding = true
