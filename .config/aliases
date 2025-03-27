@@ -21,7 +21,7 @@ function lscolors {
     done
 }
 
-alias dots='/usr/bin/git --git-dir="$XDG_CONFIG_HOME/dots" --work-tree="$HOME"'
+alias dots='/usr/bin/git --git-dir="$HOME/.config/dotfiles" --work-tree="$HOME"'
 
 function theme {
     case $1 in
