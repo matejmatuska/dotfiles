@@ -428,3 +428,12 @@ vim.opt.completeopt = { 'menu', 'menuone', 'noselect' }
 
 --vim.keymap.set('i', '<Tab>', 'pumvisible() ? "\\<C-n>" : "\\<Tab>"', {expr = true})
 --vim.keymap.set('i', '<Tab>', 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"', {expr = true})
+
+-- Diagnostics ----------------------------------------------------------------
+vim.diagnostic.config({
+  virtual_text = { current_line = true }
+})
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+
+-- LSP ------------------------------------------------------------------------
+require("my/lsp")

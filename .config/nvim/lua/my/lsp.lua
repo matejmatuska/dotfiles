@@ -1,10 +1,3 @@
--- Diagnostics
--- replaced by 0.10 defaults
--- vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { desc = 'Diagnostics hover' })
--- vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, { desc = 'Go to next diagnostic message' })
--- vim.keymap.set('n', ']e', vim.diagnostic.goto_next, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 capabilities.offsetEncoding = 'utf-8'
