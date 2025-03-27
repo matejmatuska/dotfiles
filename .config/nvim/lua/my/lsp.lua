@@ -1,8 +1,5 @@
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-capabilities.offsetEncoding = 'utf-8'
-
-local lspconfig = require('lspconfig')
 
 vim.api.nvim_create_autocmd('LspAttach', {
   -- group = vim.api.nvim_create_augroup('UserLspConfig', { clear = True }),
@@ -59,74 +56,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end
 })
 
-lspconfig.clangd.setup {
+-- default capabilities - these get extended by LS specific ones
+vim.lsp.config('*', {
     capabilities = capabilities,
-    cmd = { 'clangd', '--clang-tidy', '--completion-style=detailed' },
-}
+})
 
-lspconfig.rust_analyzer.setup {
-    capabilities = capabilities,
-    settings = {
-        ["rust-analyzer"] = {
-            assist = {
-                importGranularity = "module",
-                importPrefix = "by_self",
-            },
-            cargo = {
-                loadOutDirsFromCheck = true
-            },
-            procMacro = {
-                enable = true
-            },
-        }
-    }
-}
-
-lspconfig.pyright.setup {
-    capabilities = capabilities,
-    cmd = { "pyright-langserver", "--stdio" },
-    filetypes = { "python" },
-    settings = {
-        python = {
-            analysis = {
-                autoSearchPaths = true,
-                diagnosticMode = "workspace",
-                useLibraryCodeForTypes = true
-            }
-        }
-    },
-}
-
---lspconfig.pylsp.setup {
---    --cmd = { "pyls" },
---    capabilities = capabilities,
---    filetypes = { "python" },
---}
-
-lspconfig.bashls.setup { capabilities = capabilities }
-
-lspconfig.hls.setup {
-    capabilities = capabilities,
-    filetypes = { 'haskell', 'lhaskell', 'cabal' },
-}
-
-lspconfig.ts_ls.setup {
-    capabilities = capabilities,
-}
-
-lspconfig.gopls.setup {
-    cmd = { vim.env.HOME .. '/go/bin/gopls' },
-    capabilities = capabilities,
-    settings = {
-        gopls = {
-            ["ui.inlayhint.hints"] = {
-                compositeLiteralFields = true,
-                constantValues = true,
-                parameterNames = true,
-                assignVariableTypes = false,
-            },
-        }
-    }
-}
-
---lspconfig.texlab.setup {}
+vim.lsp.enable({ 'basedpyright', 'bashls' })

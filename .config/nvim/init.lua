@@ -58,12 +58,6 @@ require('lazy').setup({
         end
     },
     {
-        'neovim/nvim-lspconfig',
-        config = function()
-            require("my/lsp")
-        end
-    },
-    {
         -- Autocompletion
         'hrsh7th/nvim-cmp',
         enabled = true,
